@@ -49,13 +49,13 @@ _osh_loader_srcs=$(first_existing_file \
 
 echo SCRIPT_DIR=$SCRIPT_DIR
 
-
-if [ -n "$_osh_cfg_srcs" ]; then
-	for src in $_osh_cfg_srcs $_osh_loader_srcs; do
-	  >&2 echo "Loading config: $src"
-	  . "$src"
-	done
-fi
+# Load local config
+for src in $_osh_cfg_srcs $_osh_loader_srcs; do
+  if [ -f "$src" ]; then
+    >&2 echo "Loading config: $src"
+    . "$src"
+  fi
+done
 
 #export OSH="${_osh_install_src%/*}"
 #source "$OSH"/oh-my-bash.sh
