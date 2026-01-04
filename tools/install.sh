@@ -60,44 +60,51 @@ install_omb (){
 
 REMOTE_URL=https://github.com/mrjk/omb-custom
 
+update_git_repo () {
+  local dir=$1
+  git pull
+}
+
 install_omb_custom () {
   local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
-  # local root_install=false
-  local install_prefix=$install_dest
+  local install_prefix=$OSH_SYSTEM_DIR/custom
 
-
-  #if [ $(id -u) = 0 ]; then
-    #root_install=true
-    install_prefix=$OSH_SYSTEM_DIR/custom
-
-    if ! [ -w "$install_prefix" ]; then
-      install_prefix=$HOME/.local/share/oh-my-bash/custom
-      #root_install=false
+  # Detect omb-custom installation
+  if [ -f "$install_prefix/README.md" ]; then
+    if [ -w "$install_prefix" ] ; then
+      update_git_repo "$install_prefix"
+      echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
+    else
+      echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
     fi
-  #fi
-  
-  if ! [ -f "$install_prefix/README.md" ]; then
-    echo "INFO: Installing oh-my-bash-mrjk in: $install_prefix"
-
-    #if $root_install; then
-    #  if [ -f "$install_prefix/example.sh" ]; then
-    #    echo "INFO: Removing oh-my-bash examples dir: $install_prefix"
-    #    rm -rf  "$install_prefix"
-    #  fi
-    #else
-      if [ -f "$install_prefix/example.sh" ]; then
-         rm -rf  "$install_prefix"
-      fi
-      #if [ -f "$install_prefix/example.sh" ]; then
-      #  echo "WARN: Please remove any files in $install_prefix to continue installation"
-      #  return 0
-      #fi
-    #fi
-    git clone $REMOTE_URL "$install_prefix"
-  else
-    echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
-    return 
+    return
   fi
+
+  # Install in user paths
+  if ! [ -w "$install_prefix" ]; then
+    install_prefix=$HOME/.local/share/oh-my-bash/custom
+  fi
+  if ! mkdir -p "$install_prefix"; then
+      echo "ERROR: oh-my-bash-mrjk can't find writable path in $install_prefix"
+      return
+  fi
+  
+  if [ -f "$install_prefix/README.md" ]; then
+    if [ -w "$install_prefix" ] ; then
+      update_git_repo "$install_prefix"
+      echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
+    else
+      echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
+    fi
+    return
+  fi
+
+  # Run installation
+  echo "INFO: Installing oh-my-bash-mrjk in: $install_prefix"
+  if [ -f "$install_prefix/example.sh" ]; then
+     rm -rf  "$install_prefix"
+  fi
+  git clone $REMOTE_URL "$install_prefix"
   echo "INFO: oh-my-bash-mrjk has been installed in: $install_prefix"
   
 }
