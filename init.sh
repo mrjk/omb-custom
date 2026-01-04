@@ -27,7 +27,7 @@ first_existing_file() {
 }
 
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 _osh_install_src=$(first_existing_file \
   ~/.oh-my-bash/oh-my-bash.sh \
   ~/opt/oh-my-bash/oh-my-bash.sh \
@@ -47,12 +47,12 @@ _osh_loader_srcs=$(first_existing_file \
   /usr/share/oh-my-bash/custom/config/loader.sh
 )
 
-echo SCRIPT_DIR=$SCRIPT_DIR
+# echo SCRIPT_DIR=$SCRIPT_DIR
 
 # Load local config
 for src in $_osh_cfg_srcs $_osh_loader_srcs; do
   if [ -f "$src" ]; then
-    >&2 echo "Loading config: $src"
+    >&2 echo "INFO: Loading config: $src"
     . "$src"
   fi
 done
@@ -60,8 +60,8 @@ done
 #export OSH="${_osh_install_src%/*}"
 #source "$OSH"/oh-my-bash.sh
 
-echo "DEBUG PLUGINS=$plugins"
-echo "DEBUG ALIASES=$aliases"
+#echo "DEBUG PLUGINS=$plugins"
+#echo "DEBUG ALIASES=$aliases"
 #aliases=(
 #  general
 #  mrjk_user
@@ -85,7 +85,7 @@ echo "DEBUG ALIASES=$aliases"
 
 
 
-# Load extra config
+# Load extra config from previously loaded config
 _omb_module_require_plugin "${plugins[@]}"
 _omb_module_require_alias "${aliases[@]}"
 _omb_module_require_completion "${completions[@]}"

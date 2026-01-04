@@ -1,2 +1,4 @@
 
-echo CUSTOM_CONF
+>&2 echo 'INFO: Default oh-my-bash-mrjk conf loaded'
+
+
