@@ -25,7 +25,7 @@ first_existing_file() {
  
 ### Installers
 OSH_SYSTEM_DIR='/usr/share/oh-my-bash'
-OSH_SCAN_DIRS="\
+OSH_SCAN_FILES="\
   ~/.oh-my-bash/oh-my-bash.sh  \
   ~/.local/share/oh-my-bash/dist/oh-my-bash.sh  \
   ~/opt/oh-my-bash/oh-my-bash.sh \
@@ -101,10 +101,10 @@ install_omb_custom () {
 
 # Function to detect where is currently installed oh-my-bash
 detect_omb (){
-  local current_install=${OSH:-}
-  if [ -z "${OSH:-}" ]; then
-    current_install=$(first_existing_file $OSH_SCAN_DIRS)
-  fi
+  #local current_install=${OSH:-}
+  #if [ -z "${OSH:-}" ]; then
+    current_install=$(first_existing_file ${OSH:-} $OSH_SCAN_FILES)
+  #fi
   echo "$current_install"
 }
 
