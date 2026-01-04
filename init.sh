@@ -48,8 +48,6 @@ _osh_loader_srcs=$(first_existing_file \
 )
 
 echo SCRIPT_DIR=$SCRIPT_DIR
-echo SCRIPT_DIR2=$SCRIPT_DIR
-echo FAILLLL
 
 # Load local config
 for src in $_osh_cfg_srcs $_osh_loader_srcs; do
@@ -77,13 +75,18 @@ echo "DEBUG ALIASES=$aliases"
 #)
 #OSH_THEME="font"
 
-plugins=(
-  git
-  bashmarks
-  home_paths
-  mise
-  direnv
-)
+#plugins=(
+#  git
+#  bashmarks
+#  home_paths
+#  mise
+#  direnv
+#)
 
 
+
+# Load extra config
+_omb_module_require_plugin "${plugins[@]}"
+_omb_module_require_alias "${aliases[@]}"
+_omb_module_require_completion "${completions[@]}"
 
