@@ -52,7 +52,7 @@ _osh_loader_srcs=$(first_existing_file \
 # Load local config
 for src in $_osh_cfg_srcs $_osh_loader_srcs; do
   if [ -f "$src" ]; then
-    >&2 echo "INFO: Loading config: $src"
+    # >&2 echo "INFO: Loading config: $src"
     . "$src"
   fi
 done

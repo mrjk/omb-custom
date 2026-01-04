@@ -120,7 +120,7 @@ install_bashrc() {
 # Load oh-my-bash
 export OSH="$OSH_SYSTEM_DIR"
 if [ -d "\$OSH" ]; then
-  >&2 echo "INFO: loading oh-my-bash \$OSH"
+  # >&2 echo "INFO: loading oh-my-bash \$OSH"
   source "\$OSH"/oh-my-bash.sh
 fi
 EOF
@@ -135,7 +135,7 @@ install_bashrc
 
 
 if [ -z "${OSH:-}" ]; then
-  echo "INFO: Run '. ~/.bashrc to activate'"
+  echo "INFO: Run '. ~/.bashrc' to activate"
 fi
 
 
