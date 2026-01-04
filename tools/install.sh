@@ -62,7 +62,10 @@ REMOTE_URL=https://github.com/mrjk/omb-custom
 
 update_git_repo () {
   local dir=$1
-  git pull
+  (
+    cd "$dir"
+    git pull
+  )
 }
 
 install_omb_custom () {
