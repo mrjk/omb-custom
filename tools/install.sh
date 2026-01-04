@@ -70,23 +70,27 @@ update_git_repo () {
 
 install_omb_custom () {
   local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
-  local install_prefix=$OSH_SYSTEM_DIR/custom
 
-  # Detect omb-custom installation
-  if [ -f "$install_prefix/README.md" ]; then
-    if [ -w "$install_prefix" ] ; then
-      update_git_repo "$install_prefix"
-      echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
-    else
-      echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
-    fi
-    return
-  fi
+  # System wide install is not supported since OSH_CUSTOM only look by default in user directory
+  #local install_prefix=$OSH_SYSTEM_DIR/custom
 
-  # Install in user paths
-  if ! [ -w "$install_prefix" ]; then
-    install_prefix=$HOME/.local/share/oh-my-bash/custom
-  fi
+  ## Detect omb-custom installation
+  #if [ -f "$install_prefix/README.md" ]; then
+  #  if [ -w "$install_prefix" ] ; then
+  #    update_git_repo "$install_prefix"
+  #    echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
+  #  else
+  #    echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
+  #  fi
+  #  return
+  #fi
+
+  ## Install in user paths
+  #if ! [ -w "$install_prefix" ]; then
+  #  install_prefix=$HOME/.local/share/oh-my-bash/custom
+  #fi
+
+  install_prefix=$HOME/.local/share/oh-my-bash/custom
   if ! mkdir -p "$install_prefix"; then
       echo "ERROR: oh-my-bash-mrjk can't find writable path in $install_prefix"
       return
