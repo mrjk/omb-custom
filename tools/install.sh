@@ -71,19 +71,23 @@ update_git_repo () {
 install_omb_custom () {
   local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
 
-  # System wide install is not supported since OSH_CUSTOM only look by default in user directory
-  #local install_prefix=$OSH_SYSTEM_DIR/custom
+  # Root always load system instane if loaded
+  if [ $(id -u) = 0 ]; then
 
-  ## Detect omb-custom installation
-  #if [ -f "$install_prefix/README.md" ]; then
-  #  if [ -w "$install_prefix" ] ; then
-  #    update_git_repo "$install_prefix"
-  #    echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
-  #  else
-  #    echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
-  #  fi
-  #  return
-  #fi
+    # System wide install is not supported since OSH_CUSTOM only look by default in user directory
+    local install_prefix=$OSH_SYSTEM_DIR/custom
+
+    # Detect omb-custom installation
+    if [ -f "$install_prefix/README.md" ]; then
+      if [ -w "$install_prefix" ] ; then
+        update_git_repo "$install_prefix"
+        echo "INFO: oh-my-bash-mrjk has been updated in: $install_prefix"
+      else
+        echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
+      fi
+      return
+    fi
+  fi
 
   ## Install in user paths
   #if ! [ -w "$install_prefix" ]; then
