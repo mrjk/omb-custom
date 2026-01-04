@@ -42,7 +42,7 @@ install_omb (){
     fi
     echo "INFO: installing oh-my-bash in $install_prefix"
     #export OSH="$install_prefix"
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended --prefix $install_prefix
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended --prefix=$install_prefix
   fi
 
 }
