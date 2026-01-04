@@ -62,20 +62,23 @@ REMOTE_URL=https://github.com/mrjk/omb-custom
 
 install_omb_custom () {
   local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
-  local root_install=false
+  # local root_install=false
   local install_prefix=$install_dest
-  if [ $(id -u) = 0 ]; then
-    root_install=true
-    install_prefix=/usr/share/oh-my-bash/custom
+
+
+  #if [ $(id -u) = 0 ]; then
+    #root_install=true
+    install_prefix=$OSH_SYSTEM_DIR/custom
 
     if ! [ -w "$install_prefix" ]; then
       install_prefix=$HOME/.local/share/oh-my-bash/custom
-      root_install=false
+      #root_install=false
     fi
-  fi
+  #fi
   
   if ! [ -f "$install_prefix/README.md" ]; then
     echo "INFO: Installing oh-my-bash-mrjk in: $install_prefix"
+
     #if $root_install; then
     #  if [ -f "$install_prefix/example.sh" ]; then
     #    echo "INFO: Removing oh-my-bash examples dir: $install_prefix"
