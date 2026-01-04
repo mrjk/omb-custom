@@ -35,13 +35,16 @@ _osh_install_src=$(first_existing_file \
   /usr/share/oh-my-bash/oh-my-bash.sh 
 )
 _osh_cfg_srcs=$(first_existing_file \
-  /etc/oh-my-bash/config.sh \
+  ~/.config/oh-my-bash/config.sh \ 
   ~/.local/share/oh-my-bash/custom/config/config.sh \
-  ~/.config/oh-my-bash/config.sh ) 
+  /etc/oh-my-bash/config.sh \
+  /usr/share/oh-my-bash/custom/config/config.sh
+)
 _osh_loader_srcs=$(first_existing_file \
-  /etc/oh-my-bash/loader.sh \
+  ~/.config/oh-my-bash/loader.sh \ 
   ~/.local/share/oh-my-bash/custom/config/loader.sh \
-  ~/.config/oh-my-bash/loader.sh 
+  /etc/oh-my-bash/loader.sh \
+  /usr/share/oh-my-bash/custom/config/loader.sh
 )
 
 echo SCRIPT_DIR=$SCRIPT_DIR

@@ -29,19 +29,21 @@ OSH_SCAN_DIRS="\
   ~/.local/share/oh-my-bash/dist/oh-my-bash.sh  \
   ~/opt/oh-my-bash/oh-my-bash.sh \
   ~/.local/share/oh-my-bash/oh-my-bash.sh \
+  /usr/share/oh-my-bash/oh-my-bash.sh
 "
 
 install_omb (){
 
   current=$(detect_omb)
   if [ -n "$current" ]; then
-    echo "INFO: oh-my-bash is already installed in: $OSH"
+    echo "INFO: oh-my-bash is already installed in: $current"
   else
     if [ $(id -u) = 0 ]; then
       install_prefix=/usr
     fi
     echo "INFO: installing oh-my-bash in $install_prefix"
     #export OSH="$install_prefix"
+    set +x
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended --prefix=$install_prefix
   fi
 
@@ -50,8 +52,9 @@ install_omb (){
 REMOTE_URL=https://github.com/mrjk/omb-custom
 
 install_omb_custom () {
-  install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
+  local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
   local root_install=false
+  local install_prefix=$install_dest
   if [ $(id -u) = 0 ]; then
     root_install=true
     install_prefix=/usr/share/oh-my-bash/custom
@@ -93,6 +96,7 @@ install_bashrc() {
   else
     echo "INFO: Installing oh-my-bash into .bashrc"
     cat << 'EOF' >> ~/.bashrc
+
 # Load oh-my-bash
 export OSH="/usr/share/oh-my-bash"
 if [ -d "$OSH" ]; then
