@@ -24,6 +24,7 @@ first_existing_file() {
 }
  
 ### Installers
+OSH_SYSTEM_DIR='/usr/share/oh-my-bash'
 OSH_SCAN_DIRS="\
   ~/.oh-my-bash/oh-my-bash.sh  \
   ~/.local/share/oh-my-bash/dist/oh-my-bash.sh  \
@@ -37,16 +38,24 @@ install_omb (){
   current=$(detect_omb)
   if [ -n "$current" ]; then
     echo "INFO: oh-my-bash is already installed in: $current"
-  else
-    if [ $(id -u) = 0 ]; then
-      install_prefix=/usr
-    fi
-    echo "INFO: installing oh-my-bash in $install_prefix"
-    #export OSH="$install_prefix"
-    set +x
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended --prefix=$install_prefix
+    return
   fi
 
+  local install_prefix=$HOME/.local
+  if [ $(id -u) = 0 ]; then
+    install_prefix=/usr
+    if ! [ -w "$install_prefix" ]; then
+      install_prefix=$HOME/.local
+    fi
+    if ! [ -w "$install_prefix/share/oh-my-bash" ]; then
+      install_prefix=$HOME/.local
+    fi
+  fi
+  echo "INFO: installing oh-my-bash in ${install_prefix}/share/oh-my-bash"
+  set +x
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended ${install_prefix:+--prefix=$install_prefix}
+
+  export OSH_SYSTEM_DIR="$install_prefix/share/oh-my-bash"
 }
 
 REMOTE_URL=https://github.com/mrjk/omb-custom
@@ -58,21 +67,29 @@ install_omb_custom () {
   if [ $(id -u) = 0 ]; then
     root_install=true
     install_prefix=/usr/share/oh-my-bash/custom
+
+    if ! [ -w "$install_prefix" ]; then
+      install_prefix=$HOME/.local/share/oh-my-bash/custom
+      root_install=false
+    fi
   fi
   
   if ! [ -f "$install_prefix/README.md" ]; then
     echo "INFO: Installing oh-my-bash-mrjk in: $install_prefix"
-    if $root_install; then
+    #if $root_install; then
+    #  if [ -f "$install_prefix/example.sh" ]; then
+    #    echo "INFO: Removing oh-my-bash examples dir: $install_prefix"
+    #    rm -rf  "$install_prefix"
+    #  fi
+    #else
       if [ -f "$install_prefix/example.sh" ]; then
-        echo "INFO: Removing oh-my-bash examples dir: $install_prefix"
-        rm -rf  "$install_prefix"
+         rm -rf  "$install_prefix"
       fi
-    else
-      if [ -f "$install_prefix/example.sh" ]; then
-        echo "WARN: Please remove any files in $install_prefix to continue installation"
-        return 0
-      fi
-    fi
+      #if [ -f "$install_prefix/example.sh" ]; then
+      #  echo "WARN: Please remove any files in $install_prefix to continue installation"
+      #  return 0
+      #fi
+    #fi
     git clone $REMOTE_URL "$install_prefix"
   else
     echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
@@ -93,18 +110,18 @@ detect_omb (){
 
 install_bashrc() {
   # Patch .bashrc
-  if grep -q "oh-my-bash" ~/.bashrc &>/dev/null; then
+  if grep -q "oh-my-bash.sh" ~/.bashrc &>/dev/null; then
     echo "INFO: oh-my-bash is already installed into .bashrc"
   
   else
     echo "INFO: Installing oh-my-bash into .bashrc"
-    cat << 'EOF' >> ~/.bashrc
+    cat << EOF >> ~/.bashrc
 
 # Load oh-my-bash
-export OSH="/usr/share/oh-my-bash"
-if [ -d "$OSH" ]; then
-  >&2 echo "INFO: loading oh-my-bash $OSH"
-  source "$OSH"/oh-my-bash.sh
+export OSH="$OSH_SYSTEM_DIR"
+if [ -d "\$OSH" ]; then
+  >&2 echo "INFO: loading oh-my-bash \$OSH"
+  source "\$OSH"/oh-my-bash.sh
 fi
 EOF
 
