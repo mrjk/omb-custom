@@ -74,9 +74,12 @@ install_omb_custom () {
       fi
     fi
     git clone $REMOTE_URL "$install_prefix"
+  else
+    echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
+    return 
   fi
+  echo "INFO: oh-my-bash-mrjk has been installed in: $install_prefix"
   
-  echo "INFO: oh-my-bash-mrjk is already installed in: $install_prefix"
 }
 
 # Function to detect where is currently installed oh-my-bash
