@@ -406,20 +406,21 @@ shell_ps1_advanced () {
 
 function _omb_theme_PROMPT_COMMAND {
 
-  case $(readlink -f $SHELL) in
-    */zsh)
-      CURRENT_SHELL="zsh"
-      ;;
-    */bash)
-      CURRENT_SHELL="bash";
-      ;;
-    */dash)
-      CURRENT_SHELL="dash";
-      ;;
-    *)
-      # assume something else
-      CURRENT_SHELL="none"
-  esac
+  CURRENT_SHELL="bash"
+  #case $(readlink -f $SHELL) in
+  #  */zsh)
+  #    CURRENT_SHELL="zsh"
+  #    ;;
+  #  */bash)
+  #    CURRENT_SHELL="bash";
+  #    ;;
+  #  */dash)
+  #    CURRENT_SHELL="dash";
+  #    ;;
+  #  *)
+  #    # assume something else
+  #    CURRENT_SHELL="none"
+  #esac
   
 
   shell_ps1_advanced
