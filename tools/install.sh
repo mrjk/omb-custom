@@ -70,6 +70,7 @@ update_git_repo () {
 
 install_omb_custom () {
   local install_dest=${XDG_DATA_HOME:-$HOME/.local/share}/oh-my-bash/custom
+  local install_prefix=$HOME/.local/share/oh-my-bash/custom
 
   # Root always load system instane if loaded
   if [ $(id -u) = 0 ]; then
@@ -94,7 +95,6 @@ install_omb_custom () {
   #  install_prefix=$HOME/.local/share/oh-my-bash/custom
   #fi
 
-  install_prefix=$HOME/.local/share/oh-my-bash/custom
   if ! mkdir -p "$install_prefix"; then
       echo "ERROR: oh-my-bash-mrjk can't find writable path in $install_prefix"
       return
