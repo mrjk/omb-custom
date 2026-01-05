@@ -21,3 +21,4 @@ Todo:
 * fix slow mode implementation
 * make an init function
 * clean colors and remove duplicate code
+* battery support

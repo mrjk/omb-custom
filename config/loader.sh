@@ -1,8 +1,17 @@
 
->&2 echo 'INFO: Default oh-my-bash-mrjk loader executed'
+#>&2 echo 'INFO: Default oh-my-bash-mrjk loader executed'
 
 plugins=(
-  debug
+  # battery
+  colored-man-pages
+
+  home_paths
+  mise
+  direnv
+
+  # optional tools
+  fzf
+  jump
 )
 aliases=()
 completions=()
