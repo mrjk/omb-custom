@@ -17,6 +17,8 @@ Features:
 Automatic installation is recommended
 
 ### Automated
+
+This will automatically update as well:
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/mrjk/omb-custom/main/tools/install.sh)"
 ```
