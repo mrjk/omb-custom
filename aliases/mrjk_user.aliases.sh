@@ -6,12 +6,19 @@ alias mkdir='mkdir -p'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../..'
+alias ~='cd ~'
 
-alias ll='ls -lh'
-alias la='ls -lAh'
+alias ll='ls -lAh'
+alias la='ls -lA'
 alias l='ls -ClFh'
 alias ltr='ls -ahltr'
 alias lsd="ls -l | grep ^d"
+
+
+# Supershorts
+alias s='sudo -i'
+alias v='vim'
+alias sv='sudo vim'
 
 
 
