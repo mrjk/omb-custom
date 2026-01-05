@@ -29,6 +29,6 @@ alias monhost='echo "My host is ..."; host $(wget -q -O - "$@" monip.org | grep 
 alias text2ascii='tail --bytes=+4'
 
 
-alias ssh_unsecure='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no CheckHostIP=no'
+alias ssh_unsecure='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o CheckHostIP=no'
 alias ssh_local='ssh -o CheckHostIP=no '
 
