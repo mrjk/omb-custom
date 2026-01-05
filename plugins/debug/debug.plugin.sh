@@ -1,5 +1,5 @@
 
-_omb_module_require_lib jez_lib
+_omb_module_require_lib mrjk_lib
 
 >&2 echo 'INFO: Show oh-my-bash-mrjk debug loaded'
 >&2 echo "INFO:   plugins: ${plugins[@]}"

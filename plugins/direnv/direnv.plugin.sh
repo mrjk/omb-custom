@@ -1,5 +1,5 @@
 
-_omb_module_require_lib jez_lib
+_omb_module_require_lib mrjk_lib
 
 
 if command_exists direnv ; then
