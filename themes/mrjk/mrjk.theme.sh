@@ -407,7 +407,7 @@ shell_ps1_advanced () {
 function _omb_theme_PROMPT_COMMAND {
 
   case $(readlink -f $SHELL) in
-    */zsh)·
+    */zsh)
       CURRENT_SHELL="zsh"
       ;;
     */bash)
